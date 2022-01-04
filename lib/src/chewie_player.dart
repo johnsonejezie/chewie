@@ -74,6 +74,7 @@ class ChewieState extends State<Chewie> {
       _isFullScreen = isControllerFullScreen;
       await _pushFullScreenWidget(context);
     } else if (_isFullScreen) {
+      SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
       Navigator.of(
         context,
         rootNavigator: widget.controller.useRootNavigator,
