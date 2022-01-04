@@ -262,7 +262,7 @@ class _MaterialControlsState extends State<MaterialControls> with SingleTickerPr
         height: barHeight + (chewieController.isFullScreen ? 10.0 : 0),
         padding: EdgeInsets.only(
           left: 20,
-          bottom: !chewieController.isFullScreen ? 10.0 : 0,
+          bottom: 10.0,
         ),
         child: SafeArea(
           bottom: chewieController.isFullScreen,
@@ -284,7 +284,7 @@ class _MaterialControlsState extends State<MaterialControls> with SingleTickerPr
                 ),
               ),
               SizedBox(
-                height: chewieController.isFullScreen ? 15.0 : 0,
+                height: chewieController.isFullScreen ? 15.0 : 10,
               ),
               if (!chewieController.isLive)
                 Expanded(
