@@ -250,19 +250,19 @@ class _MaterialControlsState extends State<MaterialControls> with SingleTickerPr
     );
   }
 
-  AnimatedOpacity _buildBottomBar(
+Widget _buildBottomBar(
     BuildContext context,
   ) {
     final iconColor = Theme.of(context).textTheme.button!.color;
 
-    return AnimatedOpacity(
+    return SafeArea(child: AnimatedOpacity(
       opacity: notifier.hideStuff ? 0.0 : 1.0,
       duration: const Duration(milliseconds: 300),
       child: Container(
         height: barHeight + (chewieController.isFullScreen ? 10.0 : 0),
         padding: EdgeInsets.only(
           left: 20,
-          bottom: 10.0,
+          bottom: chewieController.isFullScreen ? 10.0 : 0,
         ),
         child: SafeArea(
           bottom: chewieController.isFullScreen,
@@ -280,11 +280,11 @@ class _MaterialControlsState extends State<MaterialControls> with SingleTickerPr
                     const Spacer(),
 
                     if (chewieController.allowFullScreen) _buildExpandButton(),
-                    ],
+                  ],
                 ),
               ),
               SizedBox(
-                height: chewieController.isFullScreen ? 15.0 : 10,
+                height: chewieController.isFullScreen ? 15.0 : 0,
               ),
               if (!chewieController.isLive)
                 Expanded(
@@ -301,7 +301,7 @@ class _MaterialControlsState extends State<MaterialControls> with SingleTickerPr
           ),
         ),
       ),
-    );
+    ));
   }
 
 GestureDetector _buildMuteButton(
