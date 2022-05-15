@@ -35,15 +35,21 @@ class PlayerWithControls extends StatelessWidget {
     ) {
       return Stack(
         children: <Widget>[
-          if(chewieController.placeholder!=null) chewieController.placeholder!,
-          Center(
-            child: AspectRatio(
-              aspectRatio: chewieController.aspectRatio ??
-                  chewieController.videoPlayerController.value.aspectRatio,
-              child: VideoPlayer(chewieController.videoPlayerController),
+          if (chewieController.placeholder != null)
+            chewieController.placeholder!,
+          InteractiveViewer(
+            maxScale: chewieController.maxScale,
+            panEnabled: chewieController.zoomAndPan,
+            scaleEnabled: chewieController.zoomAndPan,
+            child: Center(
+              child: AspectRatio(
+                aspectRatio: chewieController.aspectRatio ??
+                    chewieController.videoPlayerController.value.aspectRatio,
+                child: VideoPlayer(chewieController.videoPlayerController),
+              ),
             ),
           ),
-          if(chewieController.overlay!=null) chewieController.overlay!,
+          if (chewieController.overlay != null) chewieController.overlay!,
           if (Theme.of(context).platform != TargetPlatform.iOS)
             Consumer<PlayerNotifier>(
               builder: (
@@ -51,14 +57,17 @@ class PlayerWithControls extends StatelessWidget {
                 PlayerNotifier notifier,
                 Widget? widget,
               ) =>
-                  AnimatedOpacity(
-                opacity: notifier.hideStuff ? 0.0 : 0.8,
-                duration: const Duration(
-                  milliseconds: 250,
-                ),
-                child: Container(
-                  decoration: const BoxDecoration(color: Colors.black54),
-                  child: Container(),
+                  Visibility(
+                visible: !notifier.hideStuff,
+                child: AnimatedOpacity(
+                  opacity: notifier.hideStuff ? 0.0 : 0.8,
+                  duration: const Duration(
+                    milliseconds: 250,
+                  ),
+                  child: Container(
+                    decoration: const BoxDecoration(color: Colors.black54),
+                    child: Container(),
+                  ),
                 ),
               ),
             ),
